@@ -23,7 +23,7 @@ It combines:
 - Packages: `readxl`, `ggplot2`, `ggrepel`, `clusterProfiler`, `org.Mm.eg.db`, `org.Hs.eg.db`, `openxlsx`, `ReactomePA`, `msigdbr`, `enrichplot`, `fgsea`, `data.table`.
 
 ## Data frame requirements
-The DEGs dataframe must contain the following column names: SYMBOL (for gene name column), log2FoldChange (for fold change column) and padj (for adjusted p-value column).
+The DEGs dataframe must contain the following column names: SYMBOL or Gene (for gene name column), log2FoldChange (for fold change column) and padj (for adjusted p-value column).
 
 ## Example usage
 ```r
