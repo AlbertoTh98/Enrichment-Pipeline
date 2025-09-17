@@ -132,7 +132,18 @@ perform_fgsea_all_separated_excel <- function(excel_path, sheet_name="ALL GENES"
   df <- readxl::read_excel(excel_path,sheet=sheet_name)
   df <- as.data.frame(df)
   df <- df[!is.na(df$padj) & df$padj<padj_cutoff,]
-  if(nrow(df)==0) stop("No hay genes después de filtrar por padj < ", padj_cutoff)
+  # If a "gene" or "symbol" column is found, it changes to SYMBOL
+  gene_col <- which(tolower(colnames(df)) %in% c("gene", "symbol"))
+  if(length(gene_col) > 0) {
+    colnames(df)[gene_col] <- "SYMBOL"
+  }
+  # Format SYMBOL gene names - title names
+  if("SYMBOL" %in% colnames(df)) {
+    df$SYMBOL <- sapply(df$SYMBOL, function(x) {
+      paste0(toupper(substr(x,1,1)), tolower(substr(x,2,nchar(x))))
+    })
+  }
+  if(nrow(df)==0) stop("No genes after filtering padj < ", padj_cutoff)
   
   up_df <- df[df$log2FoldChange>log2fc_cutoff,]
   down_df <- df[df$log2FoldChange< -log2fc_cutoff,]
@@ -206,6 +217,17 @@ run_enrichment_pipeline <- function(excel_path, sheet_name="Sheet1",
   # Classic Enrichment with Go, Reactome & Hallmark
   df <- readxl::read_excel(excel_path,sheet=sheet_name)
   df <- as.data.frame(df)
+  # If a "gene" or "symbol" column is found, it changes to SYMBOL
+  gene_col <- which(tolower(colnames(df)) %in% c("gene", "symbol"))
+  if(length(gene_col) > 0) {
+    colnames(df)[gene_col] <- "SYMBOL"
+  }
+  # Format SYMBOL gene names - title names
+  if("SYMBOL" %in% colnames(df)) {
+    df$SYMBOL <- sapply(df$SYMBOL, function(x) {
+      paste0(toupper(substr(x,1,1)), tolower(substr(x,2,nchar(x))))
+    })
+  }
   universe_genes <- df$SYMBOL[!is.na(df$padj)]
   up_df <- df[df$padj<padj_cutoff & df$log2FoldChange>log2fc_cutoff,]
   down_df <- df[df$padj<padj_cutoff & df$log2FoldChange< -log2fc_cutoff,]
