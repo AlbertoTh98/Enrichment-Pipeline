@@ -43,7 +43,7 @@ To clone the repository and access all scripts locally:
 ```bash
 git clone https://github.com/AlbertoTh98/Enrichment-Pipeline.git
 cd Enrichment-Pipeline
-
+```
 
 ## Example usage
 ```r
@@ -65,5 +65,5 @@ run_enrichment_pipeline(
    color_terms = "#0052DB",                                   # color used to highlight terms in plots, default value is darkred
    size_terms = 12                                            # text size for highlighted terms
 )
-
+```
 
