@@ -1,9 +1,9 @@
 # Enrichment-Pipeline
-Automatic R pipeline for FGSEA and classic enrichment (GO, KEGG, Reactome, Hallmark)
+Automatic R pipeline for **FGSEA** and **classic enrichment** (GO, KEGG, Reactome, Hallmark)
 
 # FGSEA & Classic Enrichment Pipeline
 
-This R script provides a comprehensive workflow to perform gene set enrichment analysis from RNA-seq or similar gene expression results. 
+This R script provides a comprehensive workflow to perform gene set enrichment analysis from RNA-seq or similar gene expression results (scRNA-seq results for an specific cluster). 
 
 It combines:
 
@@ -14,9 +14,14 @@ It combines:
 
 ## Features
 - Separate analysis of up- and down-regulated genes.
-- Configurable parameters: adjusted p-value cutoff, log2 fold change cutoff, p/q-value cutoffs for enrichment.
-- Robust handling of Excel sheets, missing data, and directory creation.
-- Logs messages automatically for reproducibility and debugging.
+- Configurable thresholds (`padj`, `log2FC`, `pvalue`, `qvalue`).
+- Robust handling of Excel sheets, missing data, and folder creation. 
+- Built-in logs for reproducibility and debugging.
+- **Highlighting system in plots**:
+   - `flexible_terms`: highlights any term that *contains* the provided substring (e.g., `"mito"` → highlights terms like *mitochondrial matrix* or *mitochondrial membrane*).  
+   - `specific_terms`: highlights only exact matches (e.g., `"Transmembrane Transporter Complex"`).  
+   - `specific_genes`: highlights GO terms that include certain genes of interest within their gene list.  
+   - Customizable color and text size for all highlighted terms.    
 
 ## Requirements
 - R >= 4.5.0
@@ -31,6 +36,14 @@ The input DEG (Differentially Expressed Genes) file or data frame must contain t
 | **log2FoldChange**      | Log₂ fold change value for each gene.                             | `log2foldchange`, `logfc`, `foldchange`, `logfold`                                                                                           |
 | **padj**                | Adjusted p-value (or FDR). Used to select significant DEGs.       | `padj`, `adjpval`, `adj`, `pvaladj`, `pvalueadj`, `pvalueadjusted`, `pvaladjusted`, `padjval`, `padjustedval`, `padjvalue`, `padjustedvalue` |
 | **pvalue** | Raw p-value column | `pval`, `pvalue`, `p`, `pv`                                                                                                                  |
+
+## Quick Installation
+To clone the repository and access all scripts locally: 
+
+```bash
+git clone https://github.com/AlbertoTh98/Enrichment-Pipeline.git
+cd Enrichment-Pipeline
+
 
 ## Example usage
 ```r
@@ -52,3 +65,5 @@ run_enrichment_pipeline(
    color_terms = "#0052DB",                                   # color used to highlight terms in plots, default value is darkred
    size_terms = 12                                            # text size for highlighted terms
 )
+
+
