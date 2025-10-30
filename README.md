@@ -20,10 +20,17 @@ It combines:
 
 ## Requirements
 - R >= 4.5.0
-- Packages: `readxl`, `ggplot2`, `ggrepel`, `clusterProfiler`, `org.Mm.eg.db`, `org.Hs.eg.db`, `openxlsx`, `ReactomePA`, `msigdbr`, `enrichplot`, `fgsea`, `data.table`.
+- Packages: `readxl`, `ggplot2`, `ggrepel`, `clusterProfiler`, `org.Mm.eg.db`, `org.Hs.eg.db`, `openxlsx`, `ReactomePA`, `msigdbr`, `enrichplot`, `fgsea`, `data.table`, `ggtext`, `dplyr`.
 
 ## Data frame requirements
-The DEGs dataframe must contain the following column names: SYMBOL or Gene (for gene name column), log2FoldChange (for fold change column) and padj (for adjusted p-value column).
+The input DEG (Differentially Expressed Genes) file or data frame must contain the following columns:
+
+| Column                  | Description                                                       | Accepted Names                                                                                                                               |
+| :---------------------- | :---------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------- |
+| **SYMBOL**              | Gene name or gene symbol.                                         | `symbol`, `gene`, `genesymbol`, `genename`                                                                                                   |
+| **log2FoldChange**      | Log₂ fold change value for each gene.                             | `log2foldchange`, `logfc`, `foldchange`, `logfold`                                                                                           |
+| **padj**                | Adjusted p-value (or FDR). Used to select significant DEGs.       | `padj`, `adjpval`, `adj`, `pvaladj`, `pvalueadj`, `pvalueadjusted`, `pvaladjusted`, `padjval`, `padjustedval`, `padjvalue`, `padjustedvalue` |
+| *(Optional)* **pvalue** | Raw p-value column (used only if no adjusted p-values are found). | `pval`, `pvalue`, `p`, `pv`                                                                                                                  |
 
 ## Example usage
 ```r
